@@ -1,0 +1,6 @@
+CustomerID,Age,PurchaseAmount,PurchaseDate,Gender
+1001,29,250.00,2021-03-15,Male
+1002,-24,175.50,2021-03-22,Fmale
+1003,31,,2021-31-03,Male
+1004,45,310.00,2021-04-01,Other
+1005,52,400.00,2021-04-05,Female
