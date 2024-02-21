@@ -21,4 +21,32 @@ Calculate and print the average price of the books.
 Implementation
 
 You will need to implement a Python solution for this exercise. Ensure you have the `requests` and `pandas` libraries installed, and optionally `matplotlib` for plotting.
+
+Here's a Python solution for the exercise. Make sure you have the `requests`, `bs4` (Beautiful Soup), and `pandas` libraries installed.
 """
+import requests
+from bs4 import BeautifulSoup
+import pandas as pd
+
+# Web Scraping
+url = 'http://books.toscrape.com/'
+response = requests.get(url)
+soup = BeautifulSoup(response.content, 'html.parser')
+
+# Extract book data
+books = soup.find_all('article', class_='product_pod')
+book_data = []
+for book in books:
+    title = book.h3.a['title']
+    price = book.find('p', class_='price_color').text[1:] # Remove pound symbol
+    rating = book.p['class'][1] # e.g., 'Three'
+    book_data.append({'title': title, 'price': float(price), 'rating': rating})
+
+# Data Analysis
+df = pd.DataFrame(book_data)
+print(df.head()) # Display the first few rows
+
+# Calculate and print average book price
+average_price = df['price'].mean()
+print(f"Average Price: £{average_price:.2f}")
+
